@@ -1,1 +1,1 @@
-# handleLoadInitialData with sample data
+# boilerplate-for-react-native-with-redux with sample data
