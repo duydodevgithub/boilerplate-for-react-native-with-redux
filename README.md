@@ -1,1 +1,1 @@
-# boilerplate-for-react-native-with-redux with sample data
+# boilerplate-for-react-native-with-redux and react-navigation with sample data
