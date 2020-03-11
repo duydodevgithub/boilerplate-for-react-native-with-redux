@@ -7,6 +7,7 @@ import {createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import {logger} from "./middlewares/appMiddlewares";
 import {iniData} from "./reducers/appReducers";
+import {handleLoadInitialData} from "./actions/shared";
 
 
 const store = createStore(combineReducers({
@@ -36,17 +37,26 @@ function DetailsScreen() {
 
 const Stack = createStackNavigator();
 
-function App() {
-  return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Details" component={DetailsScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
-  );
+class App extends React.Component {
+  componentDidMount() {
+    store.dispatch(handleLoadInitialData());
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Details" component={DetailsScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    );
+  }
 }
+
+
+
 
 export default App;
