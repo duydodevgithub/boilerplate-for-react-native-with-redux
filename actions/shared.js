@@ -3,9 +3,11 @@ import {
   _clearAsyncStorage,
   formatDeck,
   _retrieveCards,
-  formatCard
+  formatCard,
+  _retrieveHistory,
+  formatHistory
 } from "./helper";
-import { _storeDecks, _storeCards } from "../utils/_DATA";
+import { _storeDecks, _storeCards, _storeHistory } from "../utils/_DATA";
 import { AsyncStorage } from "react-native";
 
 export function getDecks(decks) {
@@ -22,18 +24,29 @@ export function getCards(cards) {
   };
 }
 
+export function getHistory(history) {
+  return {
+    type: "RECEIVE_HISTORY",
+    history
+  };
+}
+
 export function handleLoadInitialData() {
   _storeDecks();
   _storeCards();
+  _storeHistory();
   // _clearAsyncStorage();
   return dispatch => {
-    return Promise.all([_retrieveDecks(), _retrieveCards()]).then(
-      ([decks, cards]) => {
-        // console.log(res);
-        dispatch(getDecks(decks));
-        dispatch(getCards(cards));
-      }
-    );
+    return Promise.all([
+      _retrieveDecks(),
+      _retrieveCards(),
+      _retrieveHistory()
+    ]).then(([decks, cards, history]) => {
+      // console.log(res);
+      dispatch(getDecks(decks));
+      dispatch(getCards(cards));
+      dispatch(getHistory(history));
+    });
   };
 }
 
@@ -75,6 +88,22 @@ export function handleAddNewCard(question, answer, deckObj) {
             dispatch(getDecks(JSON.parse(result)));
           })
         );
+      }
+    );
+  };
+}
+
+export function handleHistory(deckId, correct, total) {
+  const formattedHistory = formatHistory(deckId, correct, total);
+  // console.log(formattedHistory);
+  return dispatch => {
+    return AsyncStorage.mergeItem(
+      "HISTORY",
+      JSON.stringify(formattedHistory),
+      () => {
+        AsyncStorage.getItem("HISTORY", (err, result) => {
+          dispatch(getHistory(JSON.parse(result)));
+        });
       }
     );
   };

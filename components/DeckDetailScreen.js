@@ -42,18 +42,30 @@ class DeckDetailScreen extends React.Component {
         </Card>
         <View style={styles.buttonHorizontal}>
           {deckObj.cardlist.length > 0 ? (
-            <Button
-              icon={<Icon name="alarm" color="#ffffff" />}
-              buttonStyle={{
-                borderRadius: 0,
-                margin: 5,
-                backgroundColor: "#1F7DDA"
-              }}
-              title="START QUIZ"
-              onPress={() =>
-                this.props.navigation.navigate("Quiz", { deckObj })
-              }
-            />
+            <View>
+              <Button
+                icon={<Icon name="alarm" color="#ffffff" />}
+                buttonStyle={{
+                  borderRadius: 0,
+                  margin: 5,
+                  backgroundColor: "#1F7DDA"
+                }}
+                title="START QUIZ"
+                onPress={() =>
+                  this.props.navigation.navigate("Quiz", { deckObj })
+                }
+              />
+              <Button
+                icon={<Icon name="cancel" color="#ffffff" />}
+                buttonStyle={{
+                  borderRadius: 0,
+                  margin: 5,
+                  backgroundColor: "#C07547"
+                }}
+                title="CANCEL"
+                onPress={() => this.props.navigation.navigate("Home")}
+              />
+            </View>
           ) : (
             <Button
               icon={<Icon name="alarm" color="#ffffff" />}
@@ -63,10 +75,12 @@ class DeckDetailScreen extends React.Component {
                 backgroundColor: "#1F7DDA"
               }}
               title="ADD CARD"
-              onPress={() => this.props.navigation.navigate("AddCard")}
+              onPress={() =>
+                this.props.navigation.navigate("AddNewCard", { deckObj })
+              }
             />
           )}
-          <Button
+          {/* <Button
             icon={<Icon name="remove" color="#ffffff" />}
             buttonStyle={{
               borderRadius: 0,
@@ -74,7 +88,7 @@ class DeckDetailScreen extends React.Component {
               backgroundColor: "#DA411F"
             }}
             title="REMOVE DECK"
-          />
+          /> */}
         </View>
       </SafeAreaView>
     );

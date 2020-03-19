@@ -24,6 +24,18 @@ let cards = {
     timestamp: 1467966887634,
     text: "Is the Earth oval shape?",
     answer: 0
+  },
+  asdsdg3fhdfdsfsgiyjabvozdd253nd: {
+    id: "asdsdg3fhdfdsfsgiyjabvozdd253nd",
+    timestamp: 1467966887634,
+    text: "Is Corona Virus from China?",
+    answer: 1
+  },
+  loihfurnsfsgiyjabvozdd253nd: {
+    id: "loihfurnsfsgiyjabvozdd253nd",
+    timestamp: 1467966887634,
+    text: "Was the stock market down when Corona virus occured?",
+    answer: 1
   }
 };
 
@@ -43,15 +55,10 @@ let decks = {
   aaasar8xf0123y6ziyjedfdfozdd253nd: {
     id: "aaasar8xf0123y6ziyjedfdfozdd253nd",
     description:
-      "This is default deck 2 of flashcard app This is default deck 2 of flashcard app",
-    title: "Default Deck 2",
+      "This is default deck 2 of flashcard app. Testing your knowledge about current economy",
+    title: "Economy Deck",
     timestamp: 1467356887634,
-    cardlist: [
-      "8xf0y6ziyjabvozdd253nd",
-      "8xf023fdfbef6ziyjabvozdd253nd",
-      "sdg3fhdfsgiyjabvozdd253nd",
-      "123123sdg3fhdfsgiyjabvozdd253nd"
-    ]
+    cardlist: ["asdsdg3fhdfdsfsgiyjabvozdd253nd", "loihfurnsfsgiyjabvozdd253nd"]
   }
 };
 
@@ -66,6 +73,14 @@ export const _storeDecks = async () => {
 export const _storeCards = async () => {
   try {
     await AsyncStorage.setItem("CARDS", JSON.stringify(cards));
+  } catch (error) {
+    // Error saving data
+  }
+};
+
+export const _storeHistory = async () => {
+  try {
+    await AsyncStorage.setItem("HISTORY", JSON.stringify({}));
   } catch (error) {
     // Error saving data
   }

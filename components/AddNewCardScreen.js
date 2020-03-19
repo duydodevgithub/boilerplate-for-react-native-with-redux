@@ -23,7 +23,7 @@ class AddNewCardScreen extends React.Component {
   }
 
   handleFormSubmit() {
-    const { question, answer } = this.state;
+    let { question, answer } = this.state;
     const { deckObj } = this.props.route.params;
     if (question === "" || answer === "") {
       Alert.alert("Either Title or Description can not be blank");
@@ -33,6 +33,14 @@ class AddNewCardScreen extends React.Component {
       answer.toLowerCase() === "y" ||
       answer.toLowerCase() === "n"
     ) {
+      if (answer.toLowerCase() === "yes" || answer.toLowerCase() === "y") {
+        answer = 1;
+      } else if (
+        answer.toLowerCase() === "no" ||
+        answer.toLowerCase() === "n"
+      ) {
+        answer = 0;
+      }
       //   console.log("form value: ", title, description);
       this.setState({
         question: "",
